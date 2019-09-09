@@ -1,4 +1,4 @@
-# Programming2 - Done in 2016
+# Programming2 - Made in 2016
 Project done for my second programming course. 
 
 A program for adding fish-catches in a database. 
