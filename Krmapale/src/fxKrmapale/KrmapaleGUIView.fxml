@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import fi.jyu.mit.fxgui.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="735.0" prefWidth="975.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxKrmapale.KrmapaleGUIController">
+   <top>
+      <MenuBar prefHeight="13.0" prefWidth="959.0" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Tiedosto">
+            <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleUusiKalastaja" text="Lisää uusi kalastaja" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleUusiPyyntiTieto" text="Lisää uusi pyyntitieto" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleUusiKala" text="Lisää uusi kala" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleTallenna" text="Tallenna" />
+              <MenuItem mnemonicParsing="false" onAction="#handleSulje" text="Sulje" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Muokkaa">
+            <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handlePoistaKalastaja" text="Poista kalastaja" />
+                  <MenuItem mnemonicParsing="false" onAction="#handlePoistaPyynti" text="Poista pyynti" />
+                  <MenuItem mnemonicParsing="false" onAction="#handlePoistaKala" text="Poista kala" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Apua">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleApua" text="Apua" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleTietoja" text="Tietoja..." />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <left>
+      <BorderPane prefHeight="665.0" prefWidth="257.0" BorderPane.alignment="CENTER">
+         <top>
+            <Label text="Hakuehto" BorderPane.alignment="CENTER" />
+         </top>
+         <center>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <top>
+                  <Pane prefHeight="167.0" prefWidth="292.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <TextField fx:id="textHaku" layoutX="29.0" layoutY="52.0" onKeyReleased="#handleHakuehto" prefHeight="25.0" prefWidth="200.0" />
+                        <ComboBoxChooser fx:id="cbKentat" layoutX="29.0" layoutY="99.0" onAction="#handleHakuehto" prefHeight="25.0" prefWidth="200.0" rivit="Nimi&#10;Syntymäpäivä&#10;Sähköpostiosoite&#10;Kotiosoite&#10;Postinumero&#10;Postitoimipaikka" />
+                     </children>
+                  </Pane>
+               </top>
+               <center>
+                  <ListChooser fx:id="chooserKalastajat" prefHeight="479.0" prefWidth="255.0" rivit="Hakutulos1&#10;Hakutulos2&#10;Hakutulos3" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+         </center>
+      </BorderPane>
+   </left>
+   <center>
+      <BorderPane BorderPane.alignment="CENTER">
+         <top>
+            <Label text="Kalastajan tiedot" BorderPane.alignment="CENTER" />
+         </top>
+         <bottom>
+            <BorderPane BorderPane.alignment="TOP_LEFT">
+               <top>
+                  <Label text="Pyyntitiedot" BorderPane.alignment="CENTER" />
+               </top>
+               <center>
+                  <BorderPane prefHeight="340.0" prefWidth="361.0" style="-fx-border-width: 1; -fx-border-color: -fx-text-box-border;" styleClass="border" BorderPane.alignment="TOP_LEFT">
+                     <BorderPane.margin>
+                        <Insets />
+                     </BorderPane.margin>
+                     <top>
+                        <GridPane fx:id="gridPyyntitiedot" BorderPane.alignment="CENTER">
+                           <columnConstraints>
+                              <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+                              <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="200.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label layoutX="10.0" layoutY="17.0" text="Päivämäärä">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="10.0" layoutY="17.0" text="Pyyntitapa" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="20.0" layoutY="77.0" text="Sää" GridPane.rowIndex="2">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="20.0" layoutY="77.0" text="Vesistö" GridPane.rowIndex="3">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="20.0" layoutY="77.0" text="Ottisyvyys" GridPane.rowIndex="4">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="27.0" layoutY="195.0" text="Veden syvyys" GridPane.rowIndex="5">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="20.0" layoutY="231.0" text="Uistin/syötti" GridPane.rowIndex="6">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <TextField layoutX="38.0" layoutY="13.0" text="04.02.2016" GridPane.columnIndex="1">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" right="20.0" top="10.0" />
+                                 </GridPane.margin>
+                              </TextField>
+                              <TextField layoutX="10.0" layoutY="13.0" text="Verkkokalastus" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" right="20.0" top="10.0" />
+                                 </GridPane.margin>
+                              </TextField>
+                              <TextField layoutX="58.0" layoutY="73.0" text="Pilvinen" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" right="20.0" top="10.0" />
+                                 </GridPane.margin>
+                              </TextField>
+                              <TextField layoutX="159.0" layoutY="73.0" text="Päijänne" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" right="20.0" top="10.0" />
+                                 </GridPane.margin>
+                              </TextField>
+                              <TextField layoutX="159.0" layoutY="43.0" text="1,5m" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" right="20.0" top="10.0" />
+                                 </GridPane.margin>
+                              </TextField>
+                              <TextField layoutX="91.0" layoutY="191.0" text="3,0m" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" right="20.0" top="10.0" />
+                                 </GridPane.margin>
+                              </TextField>
+                              <TextField layoutX="101.0" layoutY="227.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" right="20.0" top="10.0" />
+                                 </GridPane.margin>
+                              </TextField>
+                           </children>
+                        </GridPane>
+                     </top>
+                     <bottom>
+                        <Label fx:id="labelVirhe" prefHeight="28.0" prefWidth="359.0" BorderPane.alignment="CENTER" />
+                     </bottom>
+                     <center>
+                        <ComboBox fx:id="cbPyyntikentat" prefWidth="300.0" BorderPane.alignment="TOP_CENTER">
+                           <BorderPane.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </BorderPane.margin>
+                        </ComboBox>
+                     </center>
+                  </BorderPane>
+               </center>
+               <BorderPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </BorderPane.margin>
+            </BorderPane>
+         </bottom>
+         <center>
+            <ScrollPane fx:id="panelKalastaja" BorderPane.alignment="TOP_LEFT">
+               <BorderPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </BorderPane.margin>
+               <content>
+                  <Pane prefHeight="369.0" style="-fx-border-width: 1; -fx-border-color: -fx-text-box-border;" styleClass="border">
+                     <children>
+                        <GridPane fx:id="gridKalastaja" prefHeight="180.0" prefWidth="360.0">
+                           <columnConstraints>
+                              <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+                              <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="200.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="Nimi">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="10.0" layoutY="17.0" text="Syntymäpäivä" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <TextField text="Kalle Kalastaja" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" right="20.0" top="10.0" />
+                                 </GridPane.margin>
+                              </TextField>
+                              <TextField layoutX="10.0" layoutY="13.0" text="28.05.1966" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" right="20.0" top="10.0" />
+                                 </GridPane.margin>
+                              </TextField>
+                              <Label layoutX="20.0" layoutY="77.0" text="Kotiosoite" GridPane.rowIndex="2">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="30.0" layoutY="17.0" text="Kaupunki" GridPane.rowIndex="3">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="30.0" layoutY="17.0" text="Postinumero" GridPane.rowIndex="4">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="30.0" layoutY="17.0" text="Sähköposti" GridPane.rowIndex="5">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <TextField layoutX="118.0" layoutY="73.0" text="Kalakuja 2 A" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" right="20.0" top="10.0" />
+                                 </GridPane.margin>
+                              </TextField>
+                              <TextField layoutX="159.0" layoutY="73.0" text="Fisukylä" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" right="20.0" top="10.0" />
+                                 </GridPane.margin>
+                              </TextField>
+                              <TextField layoutX="159.0" layoutY="43.0" text="34502" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" right="20.0" top="10.0" />
+                                 </GridPane.margin>
+                              </TextField>
+                              <TextField layoutX="159.0" layoutY="43.0" text="esim@hotmail.com" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" right="20.0" top="10.0" />
+                                 </GridPane.margin>
+                              </TextField>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </Pane>
+               </content>
+            </ScrollPane>
+         </center>
+      </BorderPane>
+   </center>
+   <right>
+      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="665.0" prefWidth="347.0" BorderPane.alignment="CENTER">
+         <items>
+            <BorderPane>
+               <top>
+                  <Label text="Kalan kuva" BorderPane.alignment="CENTER" />
+               </top>
+               <center>
+                  <ImageView fitHeight="282.0" fitWidth="299.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets />
+                     </BorderPane.margin></ImageView>
+               </center>
+            </BorderPane>
+            <BorderPane>
+               <top>
+                  <Label text="Kalan tiedot" BorderPane.alignment="CENTER" />
+               </top>
+               <center>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0" style=": ;" BorderPane.alignment="CENTER">
+                     <top>
+                        <GridPane fx:id="gridKalat" BorderPane.alignment="CENTER">
+                           <columnConstraints>
+                              <ColumnConstraints fillWidth="false" halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
+                              <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="200.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="Kalalaji">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="10.0" layoutY="17.0" text="Sukupuoli" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="10.0" layoutY="17.0" text="Kalan paino" GridPane.rowIndex="2">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="20.0" layoutY="77.0" text="Kalan pituus" GridPane.rowIndex="3">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <TextField text="Kuha" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" right="20.0" top="10.0" />
+                                 </GridPane.margin>
+                              </TextField>
+                              <TextField layoutX="38.0" layoutY="13.0" text="Naaras" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" right="20.0" top="10.0" />
+                                 </GridPane.margin>
+                              </TextField>
+                              <TextField layoutX="10.0" layoutY="13.0" text="12,50kg" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" right="20.0" top="10.0" />
+                                 </GridPane.margin>
+                              </TextField>
+                              <TextField layoutX="58.0" layoutY="73.0" text="110cm" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <GridPane.margin>
+                                    <Insets bottom="10.0" right="20.0" top="10.0" />
+                                 </GridPane.margin>
+                              </TextField>
+                           </children>
+                        </GridPane>
+                     </top>
+                     <center>
+                        <ComboBox fx:id="cbKalakentat" prefWidth="300.0" BorderPane.alignment="TOP_CENTER">
+                           <BorderPane.margin>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </BorderPane.margin>
+                        </ComboBox>
+                     </center>
+                  </BorderPane>
+               </center>
+            </BorderPane>
+         </items>
+      </SplitPane>
+   </right>
+   <bottom>
+      <BorderPane prefHeight="48.0" prefWidth="975.0" BorderPane.alignment="CENTER">
+         <left>
+            <HBox spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button minWidth="100.0" mnemonicParsing="false" onAction="#handleUusiKalastaja" prefHeight="25.0" text="Lisää Kalastaja" />
+                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleUusiPyyntiTieto" text="Lisää Pyyntitieto" />
+                  <Button layoutX="120.0" layoutY="10.0" minWidth="100.0" mnemonicParsing="false" onAction="#handleUusiKala" text="Lisää Kala" />
+               </children>
+               <BorderPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </BorderPane.margin>
+            </HBox>
+         </left>
+         <right>
+            <HBox alignment="TOP_RIGHT" spacing="10.0" BorderPane.alignment="TOP_RIGHT">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#handleTallenna" prefHeight="25.0" prefWidth="100.0" text="Tallenna">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin></Button>
+                  <Button mnemonicParsing="false" onAction="#handleSulje" prefHeight="25.0" prefWidth="100.0" text="Sulje">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <BorderPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </BorderPane.margin>
+            </HBox>
+         </right>
+      </BorderPane>
+   </bottom>
+</BorderPane>
